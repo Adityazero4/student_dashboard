@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import MenuAppBar from "./components/MenuAppBar";
+import Sidebar from "./components/Sidebar";
+import jsondata from ".//data.json";
+import StudentProfile from "./components/StudentProfile";
 
 function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MenuAppBar
+        onMenuClick={handleSidebarToggle}
+        isSidebarOpen={isSidebarOpen}
+      />
+      <Sidebar open={isSidebarOpen} onClose={handleSidebarToggle} />
+      {/* <MainContent /> */}
+      <StudentProfile data={jsondata} />
     </div>
   );
 }
